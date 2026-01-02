@@ -2,18 +2,22 @@
 
 import ServiceDetailsMain from '@/components/service-details/ServiceDetailsMain';
 import Wrapper from '@/layout/DefaultWrapper';
-import { useParams } from 'next/navigation';
 
-export default function Page() {
-  const params = useParams();
-  const id = params?.id;
+interface PageProps {
+  params: {
+    id: string;
+  };
+}
+
+export default function Page({ params }: PageProps) {
+  const id = Number(params.id);
 
   if (!id) return <p>Cargando...</p>;
 
   return (
     <Wrapper>
       <main>
-        <ServiceDetailsMain id={Number(id)} />
+        <ServiceDetailsMain id={id} />
       </main>
     </Wrapper>
   );
