@@ -25,7 +25,7 @@ const MainServiceSection = () => {
                             <div className="col-xl-4 col-lg-4 col-md-6" key={item.id}>
                                 <div className={`features-wrapper single-features ${item.active ? item.active : ""} text-center mb-25`}>
                                     <div className="features-img">
-                                        <Image src={item.image} style={{ width: "auto", height: "auto" }} alt='features' />
+                                        <Image src={item.images.url} style={{ width: "auto", height: "auto" }} alt='features' />
                                     </div>
                                     <div className="features-text">
                                         <h4>{item.title}</h4>

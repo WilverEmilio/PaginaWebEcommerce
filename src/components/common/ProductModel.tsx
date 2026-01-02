@@ -26,6 +26,31 @@ interface productDataType {
   data: any
 }
 
+const mapFeaturedToProduct = (
+  featured: productDataType
+): productsType => {
+  return {
+    id: featured.id,
+    productName: featured.title,
+    slug: featured.data?.slug ?? featured.title.toLowerCase().replace(/\s+/g, "-"),
+    description: featured.data?.description ?? "",
+    price: featured.price,
+    quantity: featured.quantity ?? 1,
+    stock: featured.data?.stock ?? 0,
+    images: [
+      {
+        id: featured.id,
+        url: featured.data?.imageUrl ?? "",
+      },
+    ],
+    category: {
+      slug: featured.category?.slug ?? "general",
+      nameCategory: featured.category?.name ?? "General",
+    },
+  };
+};
+
+
 const ProductModal: React.FC<{ modaldata: productDataType }> = ({
   modaldata,
 }) => {
@@ -244,7 +269,10 @@ const ProductModal: React.FC<{ modaldata: productDataType }> = ({
                         <div className="product-quantity-form">
                           <form onSubmit={(e) => e.preventDefault()}>
                             <button
-                              onClick={() => handleDecressCart(modaldata)}
+                              onClick={() =>
+                                handleDecressCart(mapFeaturedToProduct(modaldata))
+                              }
+
                               className="cart-minus"
                             >
                               <i className="far fa-minus"></i>
@@ -255,7 +283,10 @@ const ProductModal: React.FC<{ modaldata: productDataType }> = ({
                               value={myData?.quantity || 0}
                             />
                             <button
-                              onClick={() => handleAddToCart(modaldata)}
+                              onClick={() =>
+                                handleAddToCart(mapFeaturedToProduct(modaldata))
+                              }
+
                               className="cart-plus"
                             >
                               <i className="far fa-plus"></i>
@@ -271,9 +302,15 @@ const ProductModal: React.FC<{ modaldata: productDataType }> = ({
                     </div>
                     <div className="product__modal-links">
                       <ul>
-                        <li>
-                          <Link href="#" onClick={() => dispatch(wishlist_product
-                            (modaldata))} title="Add to Wishlist">
+                          <li>
+                          <Link
+                            href="#"
+                            title="Add to Wishlist"
+                            onClick={(e) => {
+                              e.preventDefault();
+                              dispatch(wishlist_product(mapFeaturedToProduct(modaldata)));
+                            }}
+                          >
                             <i className="fal fa-heart"></i>
                           </Link>
                         </li>

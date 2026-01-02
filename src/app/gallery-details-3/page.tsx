@@ -3,10 +3,11 @@ import Wrapper from '@/layout/DefaultWrapper';
 import React from 'react';
 
 const page = () => {
+    const id = 3;
     return (
         <Wrapper>
             <main>
-                <GallaryDetailsThree />
+                <GallaryDetailsThree id={id} />
             </main>
         </Wrapper>
     );

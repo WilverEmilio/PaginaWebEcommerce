@@ -93,13 +93,17 @@ info:string;
 desc:string;
 }
 //service type
-export interface serviceType{
-  id:number;
-  image:StaticImageData;
-  title:string;
-  desc:string;
-  active?:string
+export interface serviceType3 {
+  id: number;
+  title: string;
+  desc: string;
+  images: {
+    id: number;
+    url: string;
+  };
+  active?: string;
 }
+
 
 //productCategoryType
 export interface productCategoryType{
@@ -256,7 +260,7 @@ export interface Experience {
     Title: string;
 }
 
-export interface serviceType  {
+export interface serviceType1 {
   id: number; 
   Title: string;
   description: string;

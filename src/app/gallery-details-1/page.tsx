@@ -7,7 +7,7 @@ const page = () => {
     return (
         <Wrapper>
             <main>
-                <GalleryDetailsOne />
+                <GalleryDetailsOne id={id} />
             </main>
         </Wrapper>
     );

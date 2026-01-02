@@ -3,7 +3,7 @@ import Link from 'next/link';
 import React from 'react';
 import { useService } from '../../../api/getService';
 import { responseType } from '../../../types/response';
-import { serviceType } from '@/interFace/interFace';
+import { serviceType3 } from '@/interFace/interFace';
 
 const ServiceCategory = () => {
     const { result, loading, error }: responseType = useService();
@@ -13,10 +13,10 @@ const ServiceCategory = () => {
 
     return (
         <ul className="services-link">
-            {result?.map((service: serviceType, index: number) => (
+            {result?.map((service: serviceType3, index: number) => (
                 <li key={index}>
                     <Link href="#">
-                        <i className="fas fa-angle-right"></i> {service.Title}
+                        <i className="fas fa-angle-right"></i> {service.title}
                     </Link>
                 </li>
             ))}

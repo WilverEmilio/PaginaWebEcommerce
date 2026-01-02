@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 import { useService } from '../../../api/getService';
-import { serviceType } from '@/interFace/interFace';
+import { serviceType1 } from '@/interFace/interFace';
 import { responseType } from '../../../types/response';
 
 const ServiceSectionFour = () => {
@@ -26,14 +26,14 @@ const ServiceSectionFour = () => {
         <div className="services-area pb-60">
             <div className="container">
                 <div className="row">
-                    {result.map((item: serviceType) => (
+                    {result.map((item: serviceType1) => (
                         <div className="col-xl-4 col-lg-4 col-md-6" key={item.id}>
                             <div className="services-wrapper single-services mb-60">
                                 <div className="services-img">
                                     <Link href={`/services-details/${item.id}`}>
                                         <Image
                                             src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[1].url}`}
-                                            alt={item.title}
+                                            alt={item.Title}
                                             width={100}
                                             height={250}
                                             className="product-image"

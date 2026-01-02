@@ -26,7 +26,7 @@ const ServiceSectionThree = () => {
                                 <div className="services-wrapper mb-30">
                                     <div className="services-img">
                                         <Link href={`/services-details/${item.id}`}>
-                                            <Image src={item.image} style={{ width: "100%", height: "auto" }} alt='image not found' />
+                                            <Image src={item.images.url} style={{ width: "100%", height: "auto" }} alt='image not found' />
                                         </Link>
                                     </div>
                                     <div className="services-text text-center">

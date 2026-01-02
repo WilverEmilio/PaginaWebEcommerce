@@ -26,7 +26,7 @@ export const wishlistSlice = createSlice({
       } else {
         const tempProduct = { ...payload, quantity: 1 };
         state.cartProducts.push(tempProduct);
-        toast.success(`${payload.title} added to wishlist`, {
+        toast.success(`${payload.productName} added to wishlist`, {
           position: "top-left",
         });
       }
