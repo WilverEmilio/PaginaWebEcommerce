@@ -1,4 +1,4 @@
-"use client";
+'use client';
 import ShopDetailsMain from '@/components/shop-details/ShopDetailsMain';
 import Wrapper from '@/layout/DefaultWrapper';
 import { useParams } from 'next/navigation';

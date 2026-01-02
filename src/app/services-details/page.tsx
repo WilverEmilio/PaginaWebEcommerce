@@ -1,3 +1,4 @@
+'use client';
 import ServiceDetailsMain from '@/components/service-details/ServiceDetailsMain';
 import Wrapper from '@/layout/DefaultWrapper';
 import React from 'react';
