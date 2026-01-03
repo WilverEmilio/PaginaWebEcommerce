@@ -11,12 +11,16 @@ interface PropsData {
 }
 
 const Breadcrumb = ({ title, subTitle }: PropsData) => {
-    const { result, loading, error }: responseType = useHeader();
+    const { result, loading, error }  = useHeader();
     const backgroundImageUrl = result?.Shop
                     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.Shop.url}` 
                     : '';
-
-                    
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+    if (error || !result) {
+        return null; // evita que la app se rompa
+    }
     return (
         <>
             <div className="breadcrumb-area pt-160 pb-170" style={{ backgroundImage: `url(${backgroundImageUrl})` }}>

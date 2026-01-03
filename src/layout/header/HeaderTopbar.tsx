@@ -5,7 +5,7 @@ import { useInfo } from '../../../api/getInfo';
 import { responseType_info } from '../../../types/response';
 
 const TopHeader = () => {
-    const {resultI,loadingI,errorI}: responseType_info =  useInfo();
+    const {result,loading,error} =  useInfo();
 
 
     return (
@@ -18,13 +18,13 @@ const TopHeader = () => {
                                 <span>
                                     <i className='far fa-map'> </i>
                                     <Link href='#'>
-                                        {resultI?.address}
+                                        {result?.address}
                                     </Link>
                                 </span>
                                 <span>
                                     <i className='far fa-envelope'> </i>
                                     <Link href="mailto:suport@gmail.com" target='_blank'>
-                                        {resultI?.email}
+                                        {result?.email}
                                     </Link>
                                 </span>
                             </div>

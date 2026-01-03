@@ -6,7 +6,7 @@ import { responseType } from '../../../types/response';
 import { serviceType3 } from '@/interFace/interFace';
 
 const ServiceCategory = () => {
-    const { result, loading, error }: responseType = useService();
+    const { result, loading, error } = useService();
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error!</p>;

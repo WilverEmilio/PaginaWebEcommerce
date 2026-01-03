@@ -10,8 +10,8 @@ import { useInfo } from '../../../api/getInfo';
 import {responseType_info} from '../../../types/response';
 
 const Footer = () => {
-    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
-    const {resultI,loadingI, errorI}: responseType_info = useInfo();
+    const {resultH,loadingH, errorH} =  useHomeStart();
+    const {result,loading, error} = useInfo();
 
     const backgroundImage = resultH?.fooder?.url
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.fooder.url}`
@@ -21,7 +21,7 @@ const Footer = () => {
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.icon.url}`
     : '';
 
-    if (loadingI) {
+    if (loading) {
         return <div>Loading...</div>
     }
 
@@ -40,7 +40,7 @@ const Footer = () => {
                                         </Link>
                                     </div>
                                     <div className="footer-text">
-                                        <p>{resultI?.description}</p>
+                                        <p>{result?.description}</p>
                                     </div>
                                     <SocialIcon WrapperClass='footer-icon' />
                                 </div>
@@ -71,15 +71,15 @@ const Footer = () => {
                                         <li>
                                             <i className='fas fa-paper-plane'></i>
                                             <span className='zomata-contact'>
-                                                <Link href="#">{resultI?.address}</Link>
+                                                <Link href="#">{result?.address}</Link>
                                             </span>
                                         </li>
                                         <li>
                                             <i className='fas fa-envelope-open'></i>
                                             <span className='zomata-contact'>
-                                                {resultI?.email && (
-                                                    <a href={`mailto:${resultI.email}`}>
-                                                        {resultI.email}
+                                                {result?.email && (
+                                                    <a href={`mailto:${result.email}`}>
+                                                        {result.email}
                                                     </a>
                                                 )}
                                             </span>
@@ -87,9 +87,9 @@ const Footer = () => {
                                         <li>
                                             <i className='fas fa-headphones'></i>
                                             <span className='zomata-contact'>
-                                                {resultI?.phone && (
-                                                    <a href={`tel:${resultI.phone}`}>
-                                                        {resultI.phone}
+                                                {result?.phone && (
+                                                    <a href={`tel:${result.phone}`}>
+                                                        {result.phone}
                                                     </a>
                                                 )}
                                             </span>

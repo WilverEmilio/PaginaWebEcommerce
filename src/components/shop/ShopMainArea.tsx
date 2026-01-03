@@ -24,7 +24,7 @@ const ShopMainArea = () => {
     const dispatch = useDispatch();
     const handleAddToCart = (product: Product) => {dispatch(cart_product(product));};
 
-    const {result, loading, error}: responseType = useGetProductsAll();
+    const {result, loading, error} = useGetProductsAll();
     const filterData = result ? (activeCategory === "Default By" ? result : result.filter((item: Product) => item.category.nameCategory === activeCategory)) : [];
 
     // Calcular los productos que se mostrarán en la página actual

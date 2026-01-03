@@ -10,14 +10,14 @@ import { useHomeStart } from "../../../api/getHomeStart";
 
 const CounterSection = () => {
 
-    const { resultE, loadingE }: responseType_experience = useExperience();
-    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+    const { result, loading } = useExperience();
+    const {resultH,loadingH, errorH} =  useHomeStart();
 
     const backgroundImage = resultH?.image_experence?.url
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.image_experence.url}`
     : '';
 
-    if (loadingE) {
+    if (loading) {
         return <p>Loading...</p>;
     }
 
@@ -31,7 +31,7 @@ const CounterSection = () => {
                                 <h1>Somos una empresa experta en lo saludable<br /> Tu salud, nuestra prioridad. </h1>
                             </div>
                         </div>
-                        {resultE.map((item: Experience) => (
+                        {result?.map((item: Experience) => (
                             <div key={item.id} className="col-xl-3 col-lg-3 col-md-6">
                                 <div className="counter-wrapper mb-30">
                                     <div className="counter-text">

@@ -8,7 +8,7 @@ import { useHeader } from '../../../api/getHeader';
 import { responseType } from '../../../types/response';
 
 const FaqCta = () => {
-    const { result, loading, error }: responseType = useHeader();
+    const { result, loading, error } = useHeader();
     const backgroundImageUrl = result?.FAQ
                     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.FAQ.url}` 
                     : '';

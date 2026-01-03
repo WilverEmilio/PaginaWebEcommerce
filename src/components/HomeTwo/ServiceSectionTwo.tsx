@@ -11,7 +11,7 @@ import img5 from '../../../public/assets/img/icon/icon2.png';
 import img6 from '../../../public/assets/img/icon/icon3.png';
 
 const ServiceSectionTwo = () => {
-    const { loading, result }: responseType = useAbout();
+    const { loading, result } = useAbout();
     console.log(result);
 
     if (loading) {

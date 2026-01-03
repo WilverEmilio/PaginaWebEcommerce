@@ -6,13 +6,13 @@ import { responseType } from '../../../types/response';
 
 
 const SpStyleOne = () => {
-    const { result, loading, error }: responseType = useServiceImg();
+    const { result, loading, error } = useServiceImg();
 
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error!</p>;
 
-    const backgroundImageUrl = result?.start
-                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.start.url}` 
+    const backgroundImageUrl = result?.imagen2?.url
+                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.imagen2.url}` 
                     : '';
     return (
         <div className="our-service-area pt-120 pb-45">

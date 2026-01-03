@@ -9,14 +9,16 @@ import { responseType_home } from '../../../../types/response';
 import { Home } from '@/interFace/interFace';
 
 const HeroSliderOne = () => {
-    const {loadingH, resultH}: responseType_home = useHome();
+    const {loading, result, error} = useHome();
 
 
-    if (loadingH) {
+    if (loading) {
         return <p>Loading...</p>;
     }
 
-
+    if (error || !result) {
+        return null; // evita que la app se rompa
+    }
     return (
         <div className="slider-area">
 
@@ -40,7 +42,7 @@ const HeroSliderOne = () => {
                     }}
                 >
                     {
-                        resultH.map((item: Home) => (
+                        result?.map((item: Home) => (
                             <SwiperSlide key={item.id}>
                                 <div className="single-slider" >
                                     <div className="slider-height  d-flex align-items-center p-relative" 

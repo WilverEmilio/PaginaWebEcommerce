@@ -6,7 +6,7 @@ import { responseType } from '../../../types/response';
 import { useAbout } from '../../../api/getAbout';
 
 const AboutSection = () => {
-    const { loading, result }: responseType = useAbout();
+    const {loading, result } = useAbout();
     if (loading) {
         return <p>Loading...</p>;
     }

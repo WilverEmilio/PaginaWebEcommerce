@@ -20,8 +20,8 @@ const FutureSection = () => {
         return words.length > maxWords ? words.slice(0, maxWords).join(' ') + '...' : text;
     };
 
-    const {loading, result}: responseType = useGetFeatureProducts();
-    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+    const {loading, result} = useGetFeatureProducts();
+    const {resultH,loadingH, errorH} =  useHomeStart();
 
     const backgroundImage = resultH?.image_products?.url
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.image_products.url}`

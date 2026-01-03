@@ -10,7 +10,7 @@ import { responseType } from '../../types/response';
 
 
 const ContactForm = () => {
-    const { result, loading, error }: responseType = useHeader();
+    const { result, loading, error } = useHeader();
     const backgroundImageUrl = result?.Contact
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.Contact.url}` 
     : '';

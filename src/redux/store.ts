@@ -1,9 +1,10 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { cartSlice } from './slices/cartSlice';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persistStore, persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER, Persistor } from 'redux-persist';
 import { configureStore as configureStoreRTK } from '@reduxjs/toolkit';
 import { wishlistSlice } from './slices/wishlist-slice';
+import storage from 'redux-persist/lib/storage';
+
 
 
 
@@ -13,7 +14,7 @@ import { wishlistSlice } from './slices/wishlist-slice';
 
 const persistConfig = {
   key: 'root',
-  storage: AsyncStorage,
+  storage,
 };
 
 const persistedReducer = persistReducer(persistConfig, combineReducers({

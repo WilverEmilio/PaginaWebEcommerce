@@ -6,7 +6,7 @@ import { useInfo } from '../../../api/getInfo';
 import { responseType_info } from '../../../types/response';
 
 const TopHeaderTwo = () => {
-    const {resultI,loadingI,errorI}: responseType_info =  useInfo();
+    const {result,loading,error} =  useInfo();
 
     return (
         <div className="header-area header-2 d-none d-md-block">
@@ -18,13 +18,13 @@ const TopHeaderTwo = () => {
                                 <span>
                                     <i className='far fa-map'> </i>
                                     <Link href='#'>
-                                        {resultI?.address}
+                                        {result?.address}
                                     </Link>
                                 </span>
                                 <span>
                                     <i className='far fa-envelope'> </i>
                                     <Link href="mailto:suport@gmail.com">
-                                        {resultI?.email}
+                                        {result?.email}
                                     </Link>
                                 </span>
                             </div>

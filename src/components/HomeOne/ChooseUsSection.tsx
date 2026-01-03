@@ -4,21 +4,21 @@ import React from 'react';
 import icon1 from '../../../public/assets/img/icon/1.png';
 import icon2 from '../../../public/assets/img/icon/2.png';
 import icon3 from '../../../public/assets/img/icon/3.png';
-import { UseChooseUsSection } from '../../../api/getChooseUs';
+import { useChooseUsSection } from '../../../api/getChooseUs';
 import {responseType_chooseUs} from '../../../types/response';
 
 const ChooseUsSection = () => {
-    const { resultU, loadingU }: responseType_chooseUs = UseChooseUsSection();
-    const product = resultU?.image 
-                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultU.image.url}` 
+    const { result, loading } = useChooseUsSection();
+    const product = result?.image 
+                    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.image.url}` 
                     : '';
-    if (loadingU) {
+    if (loading) {
         return <p>Loading...</p>;
     }
 
 
     return (
-                <div className="choose-us-area pt-100 pb-70 pos-relative" key={resultU?.id}>
+                <div className="choose-us-area pt-100 pb-70 pos-relative" key={result?.id}>
                     <div className="container">
                         <div className="row">
                             <div className="col-xl-7 col-lg-12">
@@ -36,7 +36,7 @@ const ChooseUsSection = () => {
                                     <div className="choose-section">
                                         <h1>¿Por qué elegirnos?</h1>
                                         <p>
-                                            {resultU?.description}
+                                            {result?.description}
                                         </p>
                                     </div>
                                     <div className="choose-content mb-40">
@@ -44,8 +44,8 @@ const ChooseUsSection = () => {
                                             <Image src={icon1} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                         </div>
                                         <div className="choose-text">
-                                            <h4>{resultU?.title_one}</h4>
-                                            <p>{resultU?.description_one}</p>
+                                            <h4>{result?.title_one}</h4>
+                                            <p>{result?.description_one}</p>
                                         </div>
                                     </div>
                                     <div className="choose-content mb-40">
@@ -53,8 +53,8 @@ const ChooseUsSection = () => {
                                             <Image src={icon2} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                         </div>
                                         <div className="choose-text">
-                                            <h4>{resultU?.title_two}</h4>
-                                            <p> {resultU?.description_two}</p>
+                                            <h4>{result?.title_two}</h4>
+                                            <p> {result?.description_two}</p>
                                         </div>
                                     </div>
                                     <div className="choose-content">
@@ -62,8 +62,8 @@ const ChooseUsSection = () => {
                                             <Image src={icon3} style={{ width: "auto", height: "auto" }} alt="image not found" />
                                         </div>
                                         <div className="choose-text">
-                                            <h4>{resultU?.title_three}</h4>
-                                            <p>{resultU?.description_three}</p>
+                                            <h4>{result?.title_three}</h4>
+                                            <p>{result?.description_three}</p>
                                         </div>
                                     </div>
                                 </div>

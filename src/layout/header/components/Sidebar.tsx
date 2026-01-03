@@ -22,8 +22,8 @@ interface gallaryTypes {
 }
 
 const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
-    const {resultI,loadingI,errorI}: responseType_info =  useInfo();
-    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+    const {result,loading,error} =  useInfo();
+    const {resultH,loadingH, errorH} =  useHomeStart();
     const logo = resultH?.icon?.url
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.icon.url}`
     : '';
@@ -70,17 +70,17 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: any) => {
                 <div className="contact-list mb-30">
                     <h4>Dirección</h4>
                     <p>
-                        {resultI?.address}
+                        {result?.address}
                     </p>
                 </div>
                 <div className="contact-list mb-30">
                     <h4>Telefono</h4>
-                    <Link href="tel:+53684956245">{resultI?.phone}</Link>
+                    <Link href="tel:+53684956245">{result?.phone}</Link>
                     <br />
                 </div>
                 <div className="contact-list mb-30">
                     <h4>Correo electronico</h4>
-                    <Link href="mailto:howdy@zomata.com" target='_blank'>{resultI?.email}</Link>
+                    <Link href="mailto:howdy@zomata.com" target='_blank'>{result?.email}</Link>
                     <br />
                 </div>
             </div>

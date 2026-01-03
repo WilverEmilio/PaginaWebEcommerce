@@ -23,6 +23,7 @@ import "slick-carousel/slick/slick-theme.css";
 import { useParams } from 'next/navigation';
 import { useGetCategory } from '../../../../api/getCategory';
 import { useGetProductsCategory } from '../../../../api/getCategoryProducts';
+import { error } from 'console';
 
 const ProductSection = () => {
     const [activeCategorySlug, setActiveCategorySlug] = useState<string>('aceites-naturales');
@@ -34,9 +35,14 @@ const ProductSection = () => {
     };
 
     // Obtener los datos de la categoría
-    const { loading: categoryLoading, result: categories = [], error: categoryError }: responseType = useGetCategory();
+    const { loading: categoryLoading, result: categories = [], error: categoryError } = useGetCategory();
 
-    const { Result: products = [], Loading: productsLoading, Error: productsError } = useGetProductsCategory(activeCategorySlug);
+    const {
+    result: products = [],
+    loading: productsLoading,
+    error: productsError
+    } = useGetProductsCategory(activeCategorySlug);
+
 
     // Mostrar indicadores de carga o errores
     if (categoryLoading || productsLoading) {
@@ -47,13 +53,14 @@ const ProductSection = () => {
         return <p className="features-text">Error al cargar los datos...</p>;
     }
 
-    if (!categories) {
-        return <p className="features-text">No se encuentran las categorías...</p>;
+    if (!Array.isArray(categories)) {
+    return <p className="features-text">No se encuentran las categorías...</p>;
     }
 
-    if (!products && activeCategorySlug !== "") {
-        return <p className="features-text">No se encuentran los productos...</p>;
-    }    
+    if (!Array.isArray(products)) {
+    return <p className="features-text">No se encuentran los productos...</p>;
+    }
+
     return (
         <>
             <div className="product-area pos-relative pt-110 pb-85 fix">
@@ -87,7 +94,8 @@ const ProductSection = () => {
                         <div className="col-xl-12">
                             <ul className="nav product-tab justify-content-center mb-75">
                                 {
-                                    categories.map((item: Category) => (
+                                    Array.isArray(categories) && categories.map((item: Category) => (
+
                                         <li 
                                             key={item.id} 
                                             onClick={() => setActiveCategorySlug(item.slug)}
@@ -97,7 +105,7 @@ const ProductSection = () => {
                                                 <div className="product-tab-img">
                                                     {item.image && (
                                                         <Image
-                                                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.image.url}`}
+                                                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.image?.url}`}
                                                             alt={item.nameCategory}
                                                             width={50}
                                                             height={50}
@@ -120,7 +128,14 @@ const ProductSection = () => {
                                                 <div className="product-wrapper text-center mb-30">
                                                     <div className="product-img">
                                                         <Link href="/shop-details">
-                                                            <Image src={item.images[0].url} alt="product image" width={200} height={200} />
+                                                            {item.images?.length > 0 && (
+                                                                <Image
+                                                                    src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[0].url}`}
+                                                                    alt={item.productName}
+                                                                    width={100}
+                                                                    height={200}
+                                                                />
+                                                                )}
                                                         </Link>
 
                                                         <div className="product-action">

@@ -16,7 +16,7 @@ import { useHomeStart } from '../../../api/getHomeStart';
 
 const HeaderOne = () => {
 
-    const {resultH,loadingH, errorH}: responseType_home =  useHomeStart();
+    const {resultH,loadingH, errorH} =  useHomeStart();
 
     const logo = resultH?.icon?.url
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${resultH.icon.url}`

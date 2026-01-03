@@ -6,8 +6,8 @@ import { Questions } from '@/interFace/interFace';
 import { useAbout } from '../../../api/getAbout';
 
 const FaqSection = () => {
-    const { carga, resultado }: responseType_two = useQuestions();
-    const { loading, result }: responseType = useAbout();
+    const { carga, resultado } = useQuestions();
+    const { loading, result } = useAbout();
     
     if (carga) {
         return <p>Loading...</p>;
