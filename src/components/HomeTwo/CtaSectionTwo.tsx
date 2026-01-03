@@ -1,3 +1,4 @@
+'use client';
 import Link from 'next/link';
 import React from 'react';
 import ctabgImg from '../../../public/assets/img/bg/bg7.jpg';

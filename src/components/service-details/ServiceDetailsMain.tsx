@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Breadcrumb from '../common/breadcrumb/Breadcrumb';
 import serviceBg from '../../../public/assets/img/service/service-details/4.jpg';

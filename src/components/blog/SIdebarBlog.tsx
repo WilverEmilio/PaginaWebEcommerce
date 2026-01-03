@@ -1,3 +1,5 @@
+'use client';
+
 import blog_data from '@/data/blog-data';
 import Image from 'next/image';
 import Link from 'next/link';

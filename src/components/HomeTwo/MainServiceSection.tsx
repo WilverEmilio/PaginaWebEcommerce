@@ -1,3 +1,4 @@
+'use client';
 import service_data from '@/data/service-data';
 import Image from 'next/image';
 import Link from 'next/link';

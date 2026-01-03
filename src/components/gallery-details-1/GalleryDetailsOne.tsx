@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Breadcrumb from '../common/breadcrumb/Breadcrumb';
 import Image from 'next/image';

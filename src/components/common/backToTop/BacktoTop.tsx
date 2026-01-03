@@ -1,3 +1,4 @@
+'use client';
 
 import useScrollDirection from "@/hooks/sticky-header";
 import CircleIcon from "@/svg/Circle";

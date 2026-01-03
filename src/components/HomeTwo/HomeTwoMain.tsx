@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import HeroTwoSlider from '../Elements/HeroSlider/HeroTwoSlider';
 import ServiceSectionTwo from './ServiceSectionTwo';

@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import React from 'react';
 import dealsBgImg from '../../../public/assets/img/bg/3.png';

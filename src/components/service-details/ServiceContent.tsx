@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import React from 'react';
 import iconOne from '../../../public/assets/img/service/service-details/icon2.png';

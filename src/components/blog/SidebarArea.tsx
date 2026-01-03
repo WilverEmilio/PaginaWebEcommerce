@@ -1,3 +1,5 @@
+'use client';
+
 import BlogSearchForm from '@/form/blog-search-form';
 import React from 'react';
 import BlogAboutMe from './BlogAboutMe';

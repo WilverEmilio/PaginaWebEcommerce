@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import HeroSliderThree from '../Elements/HeroSlider/HeroSliderThree';
 import AboutThreeSection from './AboutThreeSection';

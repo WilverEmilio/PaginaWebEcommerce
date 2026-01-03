@@ -1,3 +1,5 @@
+'use client';
+
 import Image from 'next/image';
 import React from 'react';
 import AboutMeImg from '../../../public/assets/img/blog/details/me.png';

@@ -1,3 +1,5 @@
+'use client';
+
 import useGlobalContext from '@/hooks/use-context';
 import React from 'react';
 

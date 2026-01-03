@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import Breadcrumb from '../common/breadcrumb/Breadcrumb';
 import team_data from '@/data/team-data';

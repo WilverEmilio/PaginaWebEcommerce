@@ -1,3 +1,4 @@
+'use client';
 import LoginForm from '@/form/login-form';
 import Link from 'next/link';
 import React from 'react';

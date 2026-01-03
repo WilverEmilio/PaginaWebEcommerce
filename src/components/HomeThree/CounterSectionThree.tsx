@@ -1,3 +1,4 @@
+'use client';
 import counter_data from '@/data/counter-data';
 import React from 'react';
 import bgImage from '../../../public/assets/img/bg/bg12.jpg';

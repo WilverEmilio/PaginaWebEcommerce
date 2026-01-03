@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import authorOne from '../../../public/assets/img/blog/details/comments1.png';
 import authorTwo from '../../../public/assets/img/blog/details/comments2.png';

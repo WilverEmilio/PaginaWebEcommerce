@@ -1,3 +1,4 @@
+'use client';
 import Image from 'next/image';
 import React from 'react';
 import shapeImg from '../../../public/assets/img/shape/1.png';
