@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -8,7 +9,7 @@ import {
     decrease_quantity,
     remove_cart_product,
 } from "@/redux/slices/cartSlice";
-import { Product } from "@/interFace/interFace"; // Importa la interfaz
+import { Product } from "@/interFace/interFace";
 
 interface HeaderCartProps {
     setCartOpen: (isOpen: boolean) => void;
@@ -26,7 +27,10 @@ const HeaderCart: React.FC<HeaderCartProps> = ({ setCartOpen, cartOpen }) => {
         (state: RootState) => state.cart.cartProducts
     );
 
-    const totalPrice = cartProducts.reduce(
+    // ✅ VALIDACIÓN: Asegura que cartProducts sea un array
+    const safeCartProducts = Array.isArray(cartProducts) ? cartProducts : [];
+
+    const totalPrice = safeCartProducts.reduce(
         (total, product) => total + (product.price ?? 0) * (product.quantity ?? 0),
         0
     );
@@ -50,24 +54,25 @@ const HeaderCart: React.FC<HeaderCartProps> = ({ setCartOpen, cartOpen }) => {
                 </div>
                 <div className="cartmini__widget">
                     <div className="cartmini__inner">
-                        {cartProducts.length === 0 && (
+                        {safeCartProducts.length === 0 && (
                             <h5 className="zoma-cart">El carrito está vacío</h5>
                         )}
-                        {cartProducts.length >= 1 && (
+                        {safeCartProducts.length >= 1 && (
                             <>
                                 <ul>
-                                    {Array.isArray(cartProducts) && cartProducts.map((item) => (
+                                    {safeCartProducts.map((item) => (
                                         <li key={item.id}>
                                             <div className="cartmini__thumb">
                                                 <Link href="/">
-                                                    {item.images.length > 0 && (
+                                                    {/* ✅ VALIDACIÓN CRÍTICA: Verifica images Y length */}
+                                                    {item.images && Array.isArray(item.images) && item.images.length > 0 && (
                                                         <Image
-                                                        src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[0].url}`}
-                                                        alt={item.productName}
-                                                        width={150}
-                                                        height={150}
-                                                        className="product-image"
-                                                    />
+                                                            src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${item.images[0].url}`}
+                                                            alt={item.productName || 'Producto'}
+                                                            width={150}
+                                                            height={150}
+                                                            className="product-image"
+                                                        />
                                                     )}
                                                 </Link>
                                             </div>
@@ -80,7 +85,7 @@ const HeaderCart: React.FC<HeaderCartProps> = ({ setCartOpen, cartOpen }) => {
                                                     >
                                                         <i className="far fa-minus"></i>
                                                     </button>
-                                                    <p className="cart-input-quantity">{item.quantity}</p>
+                                                    <p className="cart-input-quantity">{item.quantity ?? 0}</p>
                                                     <button
                                                         onClick={() => dispatch(cart_product(item))}
                                                         className="cart-plus-increase"
@@ -94,7 +99,10 @@ const HeaderCart: React.FC<HeaderCartProps> = ({ setCartOpen, cartOpen }) => {
                                                     </span>
                                                 </div>
                                             </div>
-                                            <button onClick={() => handleRemoveCart(item)} className="cartmini__del">
+                                            <button 
+                                                onClick={() => handleRemoveCart(item)} 
+                                                className="cartmini__del"
+                                            >
                                                 <i className="fal fa-times"></i>
                                             </button>
                                         </li>
@@ -107,8 +115,12 @@ const HeaderCart: React.FC<HeaderCartProps> = ({ setCartOpen, cartOpen }) => {
                                     </div>
                                 </div>
                                 <div className="cartmini__viewcart">
-                                    <Link className="zoma-sec-btn" href="/cart/">Ver carrito</Link>
-                                    <Link className="zoma-sec-btn" href="/checkout/">Checkout</Link>
+                                    <Link className="zoma-sec-btn" href="/cart/">
+                                        Ver carrito
+                                    </Link>
+                                    <Link className="zoma-sec-btn" href="/checkout/">
+                                        Checkout
+                                    </Link>
                                 </div>
                             </>
                         )}
