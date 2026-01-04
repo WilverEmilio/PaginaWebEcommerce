@@ -2,5 +2,12 @@
 import { useFetch } from "@/hooks/useFetch";
 
 export function useGetProductsAll() {
-  return useFetch<any[]>("/api/products?populate=*");
+  const { result, loading, error } = useFetch<any[]>("/api/products?populate=*");
+  
+  return {
+    // ✅ Asegura que siempre sea un array
+    result: Array.isArray(result) ? result : [],
+    loading,
+    error
+  };
 }

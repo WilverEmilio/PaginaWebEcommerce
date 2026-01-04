@@ -14,7 +14,11 @@ export function useFetch<T>(endpoint: string): FetchState<T> {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!baseUrl) return;
+    if (!baseUrl) {
+      setError("NEXT_PUBLIC_BACKEND_URL no está configurado");
+      setLoading(false);
+      return;
+    }
 
     const url = `${baseUrl}${endpoint}`;
 
@@ -27,7 +31,10 @@ export function useFetch<T>(endpoint: string): FetchState<T> {
         }
 
         const json = await response.json();
+        
+        // ✅ Asegúrate de que siempre haya un valor
         setResult(json?.data ?? null);
+        setError(null); // ✅ Limpia errores previos
       } catch (err: any) {
         console.error("Fetch error:", err);
         setError(err.message ?? "Unknown error");
