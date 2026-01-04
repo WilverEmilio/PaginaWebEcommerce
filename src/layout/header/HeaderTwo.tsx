@@ -59,11 +59,11 @@ const HeaderTwo = () => {
                                             <i className="dripicons-search"></i>
                                         </button>
                                     </li>
-                                    <li className="unser-icon">
+                                    {/* <li className="unser-icon">
                                         <button>
                                             <i className="dripicons-user"></i>
                                         </button>
-                                    </li>
+                                    </li> */}
                                     <li className="cart-icon" onClick={() => { setCartOpen(!cartOpen) }}>
                                         <button>
                                             <i className="dripicons-cart"></i>
