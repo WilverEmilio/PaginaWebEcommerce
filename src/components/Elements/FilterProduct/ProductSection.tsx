@@ -19,16 +19,17 @@ import { Category, Product } from "@/interFace/interFace";
 import { useGetCategory } from "../../../../api/getCategory";
 import { useGetProductsCategory } from "../../../../api/getCategoryProducts";
 
-interface productDataType {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  rating: number;
-  quantity: number;
-  category: any;
-  data: any;
-}
+// ❌ ELIMINA ESTA INTERFAZ - Ya no la necesitas
+// interface productDataType {
+//   id: number;
+//   image: string;
+//   title: string;
+//   price: number;
+//   rating: number;
+//   quantity: number;
+//   category: any;
+//   data: any;
+// }
 
 const ProductSection = () => {
   const dispatch = useDispatch();
@@ -36,7 +37,8 @@ const ProductSection = () => {
   const [activeCategorySlug, setActiveCategorySlug] =
     useState<string>("aceites-naturales");
 
-  const [modaldata, setModalData] = useState<productDataType | null>(null);
+  // ✅ CAMBIA: Usa Product en lugar de productDataType
+  const [modaldata, setModalData] = useState<Product | null>(null);
 
   const categoryResponse = useGetCategory();
   const productResponse = useGetProductsCategory(activeCategorySlug);
@@ -172,18 +174,8 @@ const ProductSection = () => {
                           </button>
 
                           <button
-                            onClick={() =>
-                              setModalData({
-                                id: product.id,
-                                image: imageUrl,
-                                title: product.productName,
-                                price: product.price,
-                                rating: 5,
-                                quantity: 1,
-                                category: product.category,
-                                data: product,
-                              })
-                            }
+                            // ✅ CAMBIA: Pasa directamente el producto completo
+                            onClick={() => setModalData(product)}
                             aria-label="Vista rápida"
                           >
                             <i className="fas fa-eye" />
