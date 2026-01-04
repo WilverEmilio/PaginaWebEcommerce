@@ -41,7 +41,7 @@ const ShopDetailsMain = ({ id }: idType) => {
         <div className="container">
           <div className="row">
             <div className="col-xl-6">
-              {product.images?.map((img: any, i: number) => (
+              {Array.isArray(product.images) && product.images.map((img: any, i: number) => (
                 <Image
                   key={i}
                   src={`${process.env.NEXT_PUBLIC_BACKEND_URL}${img.url}`}

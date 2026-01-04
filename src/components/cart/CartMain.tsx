@@ -52,7 +52,7 @@ const CartMain = () => {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {cartProducts.map((item) => {
+                                            {Array.isArray(cartProducts) && cartProducts.map((item) => {
                                                 const totalPrice = item.price * item.quantity;
                                                 return (
                                                     <tr key={item.id}>

@@ -89,7 +89,7 @@ const OrderArea = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {cartProducts.length ? (
+                        {Array.isArray(cartProducts) && cartProducts.length > 0 ? (
                             cartProducts.map((item) => (
                                 <tr key={item.id} className="cart_item">
                                     <td className="product-name">

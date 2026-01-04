@@ -56,7 +56,7 @@ const HeaderCart: React.FC<HeaderCartProps> = ({ setCartOpen, cartOpen }) => {
                         {cartProducts.length >= 1 && (
                             <>
                                 <ul>
-                                    {cartProducts.map((item) => (
+                                    {Array.isArray(cartProducts) && cartProducts.map((item) => (
                                         <li key={item.id}>
                                             <div className="cartmini__thumb">
                                                 <Link href="/">

@@ -54,7 +54,7 @@ const WishlistMain = () => {
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {wishlistProducts.map((item: any, index: number) => {
+                                                {Array.isArray(wishlistProducts) && wishlistProducts.map((item: any, index: number) => {
                                                     // Calcular el subtotal de cada item
                                                     const subtotal = item.price * (item.quantity || 1);
 

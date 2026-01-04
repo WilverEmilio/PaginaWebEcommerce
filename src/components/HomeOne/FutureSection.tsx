@@ -92,7 +92,7 @@ const FutureSection = () => {
                 <div className="slider-container">
                     {/* Slider para el carrusel */}
                     <Slider {...settings}>
-                        {result.map((item: Product) => (
+                        {Array.isArray(result) && result.map((item: Product) => (
                             <div className="features-wrapper text-center mb-30" key={item.id}>
                                 <div className="features-img">
                                     {item.images?.length > 0 && (
