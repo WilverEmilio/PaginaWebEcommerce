@@ -10,46 +10,15 @@ import { RootState } from "@/redux/store";
 import { getRating } from "@/hooks/ratings-hooks";
 import { wishlist_product } from "@/redux/slices/wishlist-slice";
 
-interface productDataType {
-  id: number;
-  image: string;
-  title: string;
-  price: number;
-  rating: number;
-  quantity: number;
-  category: any;
-  data: any;
-}
-
-const mapFeaturedToProduct = (featured: productDataType): productsType => {
-  return {
-    id: featured.id,
-    productName: featured.title,
-    slug: featured.data?.slug ?? featured.title.toLowerCase().replace(/\s+/g, "-"),
-    description: featured.data?.description ?? "",
-    price: featured.price,
-    quantity: featured.quantity ?? 1,
-    stock: featured.data?.stock ?? 0,
-    images: [
-      {
-        id: featured.id,
-        url: featured.data?.imageUrl ?? "",
-      },
-    ],
-    category: {
-      slug: featured.category?.slug ?? "general",
-      nameCategory: featured.category?.name ?? "General",
-    },
-  };
-};
-
-const ProductModal: React.FC<{ modaldata: productDataType | null }> = ({
+const ProductModal: React.FC<{ modaldata: productsType | null }> = ({
   modaldata,
 }) => {
   const dispatch = useDispatch();
+  
   const handleAddToCart = (product: productsType) => {
     dispatch(cart_product(product));
   };
+  
   const handleDecressCart = (product: productsType) => {
     dispatch(decrease_quantity(product));
   };
@@ -64,6 +33,11 @@ const ProductModal: React.FC<{ modaldata: productDataType | null }> = ({
   }
 
   const myData = cartProducts.find((item) => item.id === modaldata.id);
+
+  // ✅ Obtener la primera imagen si existe
+  const imageUrl = modaldata.images && modaldata.images.length > 0
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${modaldata.images[0].url}`
+    : null;
 
   return (
     <div
@@ -95,16 +69,19 @@ const ProductModal: React.FC<{ modaldata: productDataType | null }> = ({
                         aria-labelledby="nav1-tab"
                       >
                         <div className="product__modal-img w-img">
-                          {modaldata.image ? (
+                          {imageUrl ? (
                             <Image
-                              src={modaldata.image}
+                              src={imageUrl}
                               style={{ width: "100%", height: "auto" }}
-                              alt={modaldata.title || "Producto"}
+                              alt={modaldata.productName || "Producto"}
                               width={500}
                               height={500}
                             />
                           ) : (
-                            <div className="text-center py-5">Sin imagen</div>
+                            <div className="text-center py-5 bg-light">
+                              <i className="fas fa-image fa-3x text-muted"></i>
+                              <p className="mt-2">Sin imagen</p>
+                            </div>
                           )}
                         </div>
                       </div>
@@ -116,34 +93,45 @@ const ProductModal: React.FC<{ modaldata: productDataType | null }> = ({
                   <div className="product__modal-content">
                     <h4 data-bs-dismiss="modal">
                       <Link href={`/shop-details/${modaldata.id}`}>
-                        {modaldata.title || "Producto sin nombre"}
+                        {modaldata.productName || "Producto sin nombre"}
                       </Link>
                     </h4>
-                    <div className="product__stock">
-                      <span>Disponibilidad:</span>
-                      <span>En Stock</span>
-                    </div>
-                    <div className="product__review d-sm-flex">
-                      <div className="rating rating__shop zoma-rating mb-15 mr-35">
-                        <ul>{getRating(modaldata.rating || 0)}</ul>
-                      </div>
-                    </div>
-                    <div className="product__price">
-                      <span>
-                        {modaldata.price === 0
-                          ? "GRATIS"
-                          : `$${modaldata.price}`}
+                    
+                    <div className="product__stock mb-3">
+                      <span>Disponibilidad: </span>
+                      <span className={modaldata.stock && modaldata.stock > 0 ? 'text-success' : 'text-danger'}>
+                        {modaldata.stock && modaldata.stock > 0 ? 'En Stock' : 'Sin Stock'}
                       </span>
                     </div>
+
+                    {modaldata.description && (
+                      <p className="product__description mb-3">
+                        {modaldata.description}
+                      </p>
+                    )}
+
+                    <div className="product__review d-sm-flex mb-3">
+                      <div className="rating rating__shop zoma-rating mb-15 mr-35">
+                        <ul>{getRating(5)}</ul>
+                      </div>
+                    </div>
+
+                    <div className="product__price mb-4">
+                      <span className="h4 text-primary">
+                        {modaldata.price === 0
+                          ? "GRATIS"
+                          : `$${modaldata.price.toFixed(2)}`}
+                      </span>
+                    </div>
+
                     <div className="product__modal-form">
                       <div className="product-quantity-cart mb-30">
                         <div className="product-quantity-form">
                           <form onSubmit={(e) => e.preventDefault()}>
                             <button
-                              onClick={() =>
-                                handleDecressCart(mapFeaturedToProduct(modaldata))
-                              }
+                              onClick={() => handleDecressCart(modaldata)}
                               className="cart-minus"
+                              disabled={!myData || myData.quantity <= 1}
                             >
                               <i className="far fa-minus"></i>
                             </button>
@@ -153,10 +141,9 @@ const ProductModal: React.FC<{ modaldata: productDataType | null }> = ({
                               value={myData?.quantity || 0}
                             />
                             <button
-                              onClick={() =>
-                                handleAddToCart(mapFeaturedToProduct(modaldata))
-                              }
+                              onClick={() => handleAddToCart(modaldata)}
                               className="cart-plus"
+                              disabled={modaldata.stock !== undefined && modaldata.stock <= 0}
                             >
                               <i className="far fa-plus"></i>
                             </button>
@@ -169,6 +156,7 @@ const ProductModal: React.FC<{ modaldata: productDataType | null }> = ({
                         </div>
                       </div>
                     </div>
+
                     <div className="product__modal-links">
                       <ul>
                         <li>
@@ -177,14 +165,30 @@ const ProductModal: React.FC<{ modaldata: productDataType | null }> = ({
                             title="Agregar a favoritos"
                             onClick={(e) => {
                               e.preventDefault();
-                              dispatch(wishlist_product(mapFeaturedToProduct(modaldata)));
+                              dispatch(wishlist_product(modaldata));
                             }}
                           >
                             <i className="fal fa-heart"></i>
                           </Link>
                         </li>
+                        <li>
+                          <Link 
+                            href="#" 
+                            title="Compartir"
+                            onClick={(e) => e.preventDefault()}
+                          >
+                            <i className="fal fa-share-alt"></i>
+                          </Link>
+                        </li>
                       </ul>
                     </div>
+
+                    {modaldata.category?.nameCategory && (
+                      <div className="product__meta mt-3 pt-3 border-top">
+                        <span className="text-muted">Categoría: </span>
+                        <span>{modaldata.category.nameCategory}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>
