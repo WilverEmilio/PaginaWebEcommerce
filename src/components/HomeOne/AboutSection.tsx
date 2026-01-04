@@ -31,15 +31,15 @@ const AboutSection = () => {
                     <div className="col-xl-6 col-lg-6">
                         <div 
                         className="about-us-img mb-30">
-                            <img 
-                            src={product} 
-                            alt="About" 
-                            className="category-image" 
-                            style={{ 
-                                borderRadius: '10px', 
-                                width: '100%', 
-                                height: '100%', 
-                            }} />
+                            {product && (
+                            <img
+                                src={product}
+                                alt="About"
+                                className="category-image"
+                                style={{ borderRadius: '10px', width: '100%', height: '100%' }}
+                            />
+                            )}
+
                         </div>
                     </div>
                     <div className="col-xl-6 col-lg-6 ">
