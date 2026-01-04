@@ -15,7 +15,6 @@ const SearchBarModel = () => {
     const { result, loading } = useGetProductsAll();
     const products = Array.isArray(result) ? result : [];
 
-    // ✅ Bloquear scroll cuando el modal está abierto
     useEffect(() => {
         if (inputValue) {
             document.body.style.overflow = 'hidden';
@@ -23,7 +22,6 @@ const SearchBarModel = () => {
             document.body.style.overflow = 'unset';
         }
 
-        // Cleanup al desmontar el componente
         return () => {
             document.body.style.overflow = 'unset';
         };
@@ -97,7 +95,7 @@ const SearchBarModel = () => {
 
                             {!loading && searchTerm && filteredProducts.length === 0 && (
                                 <div className="search-no-results">
-                                    <p>No se encontraron productos para "{searchTerm}"</p>
+                                    <p>No se encontraron productos para &quot;{searchTerm}&quot;</p>
                                 </div>
                             )}
 
