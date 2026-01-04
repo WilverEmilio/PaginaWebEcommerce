@@ -19,9 +19,9 @@ const ServiceSectionTwo = () => {
     }
 
     // // Verifica que result y attributes estén definidos
-    // if (!result || !result.attributes) {
-    //     return <p>No se encontraron datos</p>;
-    // }
+    if (!result) {
+        return <p>No se pudieron cargar los datos.</p>;
+    }
 
     // Datos dinámicos de "Qué hacemos" basados en la API
     const service_data = [

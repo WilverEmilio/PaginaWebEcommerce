@@ -1,7 +1,6 @@
 "use client";
 import React from 'react';
 import { useQuestions } from '../../../api/getQuestions';
-import { responseType, responseType_two } from '../../../types/response';
 import { Questions } from '@/interFace/interFace'; 
 import { useAbout } from '../../../api/getAbout';
 
