@@ -10,12 +10,26 @@ const FaqMainArea = () => {
   const { carga, resultado } = useQuestions();
   const { loading, result } = useAbout();
 
+  // ✅ Validación adicional
+  const faqs = Array.isArray(resultado) ? resultado : [];
+
   if (carga || loading) {
-    return <p>Loading...</p>;
+    return (
+      <div className="container text-center pt-140">
+        <p>Cargando...</p>
+      </div>
+    );
   }
 
-  if (!Array.isArray(resultado) || resultado.length === 0) {
-    return <p>No hay preguntas frecuentes disponibles en este momento.</p>;
+  if (faqs.length === 0) {
+    return (
+      <>
+        <Breadcrumb title="Faq" subTitle="Faq" />
+        <div className="container text-center pt-140 pb-140">
+          <p>No hay preguntas frecuentes disponibles en este momento.</p>
+        </div>
+      </>
+    );
   }
 
   const backgroundImageUrl =
@@ -42,7 +56,8 @@ const FaqMainArea = () => {
                 </div>
 
                 <div className="accordion" id="accordionExample">
-                  {resultado.map((faq: Questions, index: number) => (
+                  {/* ✅ Usar faqs validado */}
+                  {faqs.map((faq: Questions, index: number) => (
                     <div className="accordion-item" key={faq.id}>
                       <div className="accordion-header" id={`heading${index}`}>
                         <button
@@ -69,7 +84,6 @@ const FaqMainArea = () => {
                     </div>
                   ))}
                 </div>
-
               </div>
             </div>
           </div>

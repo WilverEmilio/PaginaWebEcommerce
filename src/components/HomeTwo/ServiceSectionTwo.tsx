@@ -11,9 +11,19 @@ import { useAbout } from "../../../api/getAbout";
 const ServiceSectionTwo = () => {
   const { loading, result } = useAbout();
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) {
+    return (
+      <div className="we-do-area pt-110 pb-85">
+        <div className="container text-center">
+          <p>Cargando...</p>
+        </div>
+      </div>
+    );
+  }
+
   if (!result) return null;
 
+  // ✅ Array estático local - ESTÁ OK porque siempre existe
   const services = [
     {
       id: 1,
@@ -67,7 +77,6 @@ const ServiceSectionTwo = () => {
             </div>
           ))}
         </div>
-
       </div>
     </div>
   );

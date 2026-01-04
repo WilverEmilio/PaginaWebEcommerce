@@ -8,10 +8,22 @@ const FaqSection = () => {
   const { carga, resultado } = useQuestions();
   const { loading, result } = useAbout();
 
-  if (carga || loading) return <p>Loading...</p>;
-  if (!Array.isArray(resultado) || !result) return null;
+  // ✅ VALIDACIÓN SEGURA
+  const faqs = Array.isArray(resultado) ? resultado : [];
 
-  const backgroundImageUrl = result.Question
+  if (carga || loading) {
+    return (
+      <div className="faq-area gray2-bg pt-105 pb-90">
+        <div className="container text-center">
+          <p>Cargando...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (faqs.length === 0 || !result) return null;
+
+  const backgroundImageUrl = result.Question?.url
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.Question.url}`
     : "";
 
@@ -35,7 +47,8 @@ const FaqSection = () => {
               </div>
 
               <div className="accordion" id="accordionExample">
-                {resultado.map((faq: Questions, index: number) => (
+                {/* ✅ CORRECCIÓN AQUÍ */}
+                {faqs.map((faq: Questions, index: number) => (
                   <div className="accordion-item" key={faq.id}>
                     <div className="accordion-header" id={`heading${index}`}>
                       <button
@@ -63,7 +76,6 @@ const FaqSection = () => {
                   </div>
                 ))}
               </div>
-
             </div>
           </div>
         </div>
