@@ -17,7 +17,7 @@ import { useGetProducts } from "../../../api/getProduct";
 
 interface productDataType {
   id: number;
-  image: StaticImageData;
+  image: string | StaticImageData;
   title: string;
   price: number;
   rating: number;
