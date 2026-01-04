@@ -10,14 +10,17 @@ const FaqMainArea = () => {
   const { carga, resultado } = useQuestions();
   const { loading, result } = useAbout();
 
-  // ✅ Validación adicional
+  // ✅ VALIDACIÓN SEGURA
   const faqs = Array.isArray(resultado) ? resultado : [];
 
   if (carga || loading) {
     return (
-      <div className="container text-center pt-140">
-        <p>Cargando...</p>
-      </div>
+      <>
+        <Breadcrumb title="Faq" subTitle="Faq" />
+        <div className="container text-center pt-140 pb-140">
+          <p>Cargando...</p>
+        </div>
+      </>
     );
   }
 
@@ -32,20 +35,25 @@ const FaqMainArea = () => {
     );
   }
 
-  const backgroundImageUrl =
-    result?.Question?.url
-      ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.Question.url}`
-      : undefined;
+  const backgroundImageUrl = result?.Question?.url
+    ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.Question.url}`
+    : "";
 
   return (
     <>
       <Breadcrumb title="Faq" subTitle="Faq" />
 
-      <div className="faq-area pt-140">
-        <div
-          className="faq-img d-none d-md-block pt-140"
-          style={backgroundImageUrl ? { backgroundImage: `url(${backgroundImageUrl})` } : {}}
-        />
+      <div className="faq-area pt-140 pb-140">
+        {backgroundImageUrl && (
+          <div
+            className="faq-img d-none d-md-block"
+            style={{ 
+              backgroundImage: `url(${backgroundImageUrl})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          />
+        )}
 
         <div className="container-fluid">
           <div className="row">
@@ -56,12 +64,11 @@ const FaqMainArea = () => {
                 </div>
 
                 <div className="accordion" id="accordionExample">
-                  {/* ✅ Usar faqs validado */}
                   {faqs.map((faq: Questions, index: number) => (
                     <div className="accordion-item" key={faq.id}>
                       <div className="accordion-header" id={`heading${index}`}>
                         <button
-                          className="accordion-button"
+                          className={`accordion-button ${index !== 0 ? 'collapsed' : ''}`}
                           type="button"
                           data-bs-toggle="collapse"
                           data-bs-target={`#collapse${index}`}
