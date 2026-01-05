@@ -54,11 +54,11 @@ const HeaderTwo = () => {
                         <div className="col-xl-10 col-lg-10 d-none d-xl-block d-lg-block">
                             <div className="header-right f-right">
                                 <ul>
-                                    <li className="search-icon" onClick={inputTogglePage}>
-                                        <button>
-                                            <i className="dripicons-search"></i>
-                                        </button>
-                                    </li>
+                                        <li className="search-icon" onClick={inputTogglePage}>
+                                            <button>
+                                                <i className="dripicons-search"></i>
+                                            </button>
+                                        </li>
                                     {/* <li className="unser-icon">
                                         <button>
                                             <i className="dripicons-user"></i>

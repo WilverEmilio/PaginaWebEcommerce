@@ -2,13 +2,14 @@
 import { useFetch } from "@/hooks/useFetch";
 
 export function useGetProducts(id: number) {
-  const { result, loading, error } = useFetch<any>(
-    `/api/products/${id}?populate=*`  // ✅ Usar el endpoint correcto
+  // ✅ CORRECTO: Usar filters en lugar de /id directo
+  const { result, loading, error } = useFetch<any[]>(
+    `/api/products?populate=*&filters[id][$eq]=${id}`
   );
   
   return {
-    // ✅ result será UN OBJETO, no un array
-    result: result || null,
+    // ✅ result será un array, igual que los demás endpoints
+    result: Array.isArray(result) ? result : [],
     loading,
     error
   };

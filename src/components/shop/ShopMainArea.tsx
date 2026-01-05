@@ -17,6 +17,7 @@ interface categoryShopType {
 }
 
 const ShopMainArea = () => {
+
     const [modaldata, setModalData] = useState<productsType | null>(null);
     const [activeCategory, setActiveCategory] = useState<string>("Default By");
     const [currentPage, setCurrentPage] = useState(1);
@@ -135,11 +136,11 @@ const ShopMainArea = () => {
                                                 <button onClick={() => handleAddToCart(item)}>
                                                     <i className="fas fa-shopping-cart"></i>
                                                 </button>
-                                                    <button onClick={() => setModalData(item)}>
-                                                    <span data-bs-toggle="modal" data-bs-target="#productModalId">
-                                                        <i className="fas fa-eye"></i>
-                                                    </span>
-                                                    </button>
+                                                <button onClick={() => setModalData(item)}>
+                                                <span data-bs-toggle="modal" data-bs-target="#productModalId">
+                                                    <i className="fas fa-eye"></i>
+                                                </span>
+                                                </button>
                                                 <button onClick={() => dispatch(wishlist_product(item))}>
                                                     <i className="fas fa-heart"></i>
                                                 </button>

@@ -1,7 +1,7 @@
 'use client';
 
 import useGlobalContext from '@/hooks/use-context';
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useGetProductsAll } from '../../../api/getProductAll';
@@ -13,23 +13,9 @@ const SearchBarModel = () => {
     const [filteredProducts, setFilteredProducts] = useState<productsType[]>([]);
     
     const { result, loading } = useGetProductsAll();
-    
-    const products = useMemo(() => {
-        return Array.isArray(result) ? result : [];
-    }, [result]);
+    const products = Array.isArray(result) ? result : [];
 
-    useEffect(() => {
-        if (inputValue) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'unset';
-        }
-
-        return () => {
-            document.body.style.overflow = 'unset';
-        };
-    }, [inputValue]);
-
+    // ✅ Filtrar productos cuando cambia el término de búsqueda
     useEffect(() => {
         if (searchTerm.trim() === "") {
             setFilteredProducts([]);
@@ -46,36 +32,35 @@ const SearchBarModel = () => {
         setFilteredProducts(filtered);
     }, [searchTerm, products]);
 
+    // ✅ Limpiar búsqueda al cerrar
     const handleClose = () => {
         setSearchTerm("");
         setFilteredProducts([]);
         setInputValue(false);
     };
 
+    // ✅ Manejar submit del formulario
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
+        // Opcional: redirigir a página de resultados
     };
-
-    // ✅ Si el modal no está abierto, no renderizar nada
-    if (!inputValue) return null;
 
     return (
         <>
-            {/* ✅ CAMBIO: Reemplaza "modal fade" por "search-modal-overlay" */}
             <div 
-                className="search-modal-overlay active"
+                className={inputValue ? "modal fade show search-modal" : "modal fade"} 
+                tabIndex={-1} 
                 role="dialog" 
-                aria-hidden="false"
+                aria-hidden="true"
+                style={inputValue ? { display: 'block' } : {}}
             >
                 <div className="modal-remove">
                     <button onClick={handleClose}>
                         <i className='fas fa-window-close'></i>
                     </button>
                 </div>
-                
-                {/* ✅ CAMBIO: Reemplaza "modal-dialog" y "modal-content" */}
-                <div className="search-modal-dialog">
-                    <div className="search-modal-content">
+                <div className="modal-dialog" role="document">
+                    <div className="modal-content">
                         <form onSubmit={handleSubmit}>
                             <input 
                                 type="text" 
@@ -89,6 +74,7 @@ const SearchBarModel = () => {
                             </button>
                         </form>
 
+                        {/* ✅ Resultados de búsqueda */}
                         <div className="search-results-container">
                             {loading && searchTerm && (
                                 <div className="search-loading">
@@ -98,7 +84,7 @@ const SearchBarModel = () => {
 
                             {!loading && searchTerm && filteredProducts.length === 0 && (
                                 <div className="search-no-results">
-                                    <p>No se encontraron productos para &quot;{searchTerm}&quot;</p>
+                                    <p>No se encontraron productos para "{searchTerm}"</p>
                                 </div>
                             )}
 
@@ -168,11 +154,13 @@ const SearchBarModel = () => {
                 </div>
             </div>
 
-            {/* Backdrop overlay */}
-            <div 
-                className="search-backdrop active"
-                onClick={handleClose}
-            ></div>
+            {/* ✅ Backdrop overlay */}
+            {inputValue && (
+                <div 
+                    className="modal-backdrop fade show" 
+                    onClick={handleClose}
+                ></div>
+            )}
         </>
     );
 };
