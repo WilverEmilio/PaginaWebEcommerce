@@ -21,32 +21,22 @@ const FaqSection = () => {
     );
   }
 
-  if (faqs.length === 0) {
-    return (
-      <div className="faq-area gray2-bg pt-105 pb-90">
-        <div className="container text-center">
-          <p>No hay preguntas frecuentes disponibles.</p>
-        </div>
-      </div>
-    );
-  }
+  if (faqs.length === 0 || !result) return null;
 
-  const backgroundImageUrl = result?.Question?.url
+  const backgroundImageUrl = result.Question?.url
     ? `${process.env.NEXT_PUBLIC_BACKEND_URL}${result.Question.url}`
     : "";
 
   return (
     <div className="faq-area gray2-bg pt-105 pb-90">
-      {backgroundImageUrl && (
-        <div
-          className="faq-img d-none d-md-block"
-          style={{
-            backgroundImage: `url(${backgroundImageUrl})`,
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-      )}
+      <div
+        className="faq-img d-none d-md-block"
+        style={{
+          backgroundImage: `url(${backgroundImageUrl})`,
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+        }}
+      />
 
       <div className="container-fluid">
         <div className="row">
@@ -57,11 +47,12 @@ const FaqSection = () => {
               </div>
 
               <div className="accordion" id="accordionExample">
+                {/* ✅ CORRECCIÓN AQUÍ */}
                 {faqs.map((faq: Questions, index: number) => (
                   <div className="accordion-item" key={faq.id}>
                     <div className="accordion-header" id={`heading${index}`}>
                       <button
-                        className={`accordion-button ${index !== 0 ? 'collapsed' : ''}`}
+                        className="accordion-button"
                         type="button"
                         data-bs-toggle="collapse"
                         data-bs-target={`#collapse${index}`}
@@ -74,8 +65,9 @@ const FaqSection = () => {
 
                     <div
                       id={`collapse${index}`}
-                      className={`accordion-collapse collapse ${index === 0 ? "show" : ""}`}
-                      data-bs-parent="#accordionExample"
+                      className={`accordion-collapse collapse ${
+                        index === 0 ? "show" : ""
+                      }`}
                     >
                       <div className="accordion__panel">
                         <p>{faq.Response}</p>

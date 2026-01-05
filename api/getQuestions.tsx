@@ -2,12 +2,10 @@
 import { useFetch } from "@/hooks/useFetch";
 
 export function useQuestions() {
-  // ✅ CORRECTO: Agregar /api/ y populate
-  const { result, loading, error } = useFetch<any[]>("/api/questions?populate=*");
+  const { result,loading, error } = useFetch<any[]>("/questions");
 
   return {
-    // ✅ Asegura que siempre sea un array
-    resultado: Array.isArray(result) ? result : [],
+    resultado: result,
     carga: loading,
     error,
   };

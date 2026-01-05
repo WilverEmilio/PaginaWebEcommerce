@@ -19,6 +19,8 @@ import { Category, Product } from "@/interFace/interFace";
 import { useGetCategory } from "../../../../api/getCategory";
 import { useGetProductsCategory } from "../../../../api/getCategoryProducts";
 
+
+
 // ❌ ELIMINA ESTA INTERFAZ - Ya no la necesitas
 // interface productDataType {
 //   id: number;

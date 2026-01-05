@@ -1,7 +1,7 @@
 'use client';
 
 import useGlobalContext from '@/hooks/use-context';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useGetProductsAll } from '../../../api/getProductAll';
@@ -13,7 +13,10 @@ const SearchBarModel = () => {
     const [filteredProducts, setFilteredProducts] = useState<productsType[]>([]);
     
     const { result, loading } = useGetProductsAll();
-    const products = Array.isArray(result) ? result : [];
+    
+    const products = useMemo(() => {
+        return Array.isArray(result) ? result : [];
+    }, [result]);
 
     useEffect(() => {
         if (inputValue) {
@@ -27,7 +30,6 @@ const SearchBarModel = () => {
         };
     }, [inputValue]);
 
-    // Filtrar productos
     useEffect(() => {
         if (searchTerm.trim() === "") {
             setFilteredProducts([]);
@@ -44,34 +46,36 @@ const SearchBarModel = () => {
         setFilteredProducts(filtered);
     }, [searchTerm, products]);
 
-    // Limpiar búsqueda al cerrar
     const handleClose = () => {
         setSearchTerm("");
         setFilteredProducts([]);
         setInputValue(false);
     };
 
-    // Manejar submit
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
     };
 
+    // ✅ Si el modal no está abierto, no renderizar nada
+    if (!inputValue) return null;
+
     return (
         <>
+            {/* ✅ CAMBIO: Reemplaza "modal fade" por "search-modal-overlay" */}
             <div 
-                className={inputValue ? "modal fade show search-modal" : "modal fade"} 
-                tabIndex={-1} 
+                className="search-modal-overlay active"
                 role="dialog" 
-                aria-hidden="true"
-                style={inputValue ? { display: 'block' } : {}}
+                aria-hidden="false"
             >
                 <div className="modal-remove">
                     <button onClick={handleClose}>
                         <i className='fas fa-window-close'></i>
                     </button>
                 </div>
-                <div className="modal-dialog" role="document">
-                    <div className="modal-content">
+                
+                {/* ✅ CAMBIO: Reemplaza "modal-dialog" y "modal-content" */}
+                <div className="search-modal-dialog">
+                    <div className="search-modal-content">
                         <form onSubmit={handleSubmit}>
                             <input 
                                 type="text" 
@@ -85,7 +89,6 @@ const SearchBarModel = () => {
                             </button>
                         </form>
 
-                        {/* Resultados de búsqueda */}
                         <div className="search-results-container">
                             {loading && searchTerm && (
                                 <div className="search-loading">
@@ -166,13 +169,10 @@ const SearchBarModel = () => {
             </div>
 
             {/* Backdrop overlay */}
-            {inputValue && (
-                <div 
-                    className="modal-backdrop fade show" 
-                    onClick={handleClose}
-                    style={{ zIndex: 9998 }}
-                ></div>
-            )}
+            <div 
+                className="search-backdrop active"
+                onClick={handleClose}
+            ></div>
         </>
     );
 };
