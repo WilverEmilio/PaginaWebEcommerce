@@ -17,8 +17,8 @@ interface categoryShopType {
 }
 
 const ShopMainArea = () => {
-
     const [modaldata, setModalData] = useState<productsType | null>(null);
+    const [isModalOpen, setIsModalOpen] = useState(false); // ✅ Agregar estado
     const [activeCategory, setActiveCategory] = useState<string>("Default By");
     const [currentPage, setCurrentPage] = useState(1);
     const itemsPerPage = 12; 
@@ -28,7 +28,6 @@ const ShopMainArea = () => {
 
     const {result, loading, error} = useGetProductsAll();
     
-    // ✅ VALIDACIÓN DEFENSIVA COMPLETA
     const safeResult = Array.isArray(result) ? result : [];
     
     const filterData = activeCategory === "Default By" 
@@ -37,15 +36,12 @@ const ShopMainArea = () => {
             item?.category?.nameCategory === activeCategory
           );
 
-    // ✅ Validación adicional
     const safeFilterData = Array.isArray(filterData) ? filterData : [];
 
-    // Calcular los productos que se mostrarán en la página actual
     const indexOfLastProduct = currentPage * itemsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - itemsPerPage;
     const currentProducts = safeFilterData.slice(indexOfFirstProduct, indexOfLastProduct);
 
-    // Funciones para manejar la paginación
     const totalPages = Math.ceil(safeFilterData.length / itemsPerPage);
 
     const handlePreviousPage = () => {
@@ -56,7 +52,12 @@ const ShopMainArea = () => {
         if (currentPage < totalPages) setCurrentPage(currentPage + 1);
     };
 
-    // ✅ MANEJO DE ESTADOS
+    // ✅ Función para abrir modal
+    const handleOpenModal = (product: Product) => {
+        setModalData(product);
+        setIsModalOpen(true);
+    };
+
     if (loading) {
         return (
             <>
@@ -79,7 +80,6 @@ const ShopMainArea = () => {
         );
     }
 
-    // Apartado para poner el orden a los productos
     const categoryShopData: categoryShopType[] = []
     
     const handleSelectChange = (e: any) => {
@@ -136,10 +136,9 @@ const ShopMainArea = () => {
                                                 <button onClick={() => handleAddToCart(item)}>
                                                     <i className="fas fa-shopping-cart"></i>
                                                 </button>
-                                                <button onClick={() => setModalData(item)}>
-                                                <span data-bs-toggle="modal" data-bs-target="#productModalId">
+                                                {/* ✅ CAMBIO AQUÍ: Sin atributos data-bs */}
+                                                <button onClick={() => handleOpenModal(item)}>
                                                     <i className="fas fa-eye"></i>
-                                                </span>
                                                 </button>
                                                 <button onClick={() => dispatch(wishlist_product(item))}>
                                                     <i className="fas fa-heart"></i>
@@ -174,7 +173,8 @@ const ShopMainArea = () => {
                     )}
                 </div>
             </div>
-            <ProductModal modaldata={modaldata} />
+            {/* ✅ Pasar el estado isModalOpen */}
+            <ProductModal modaldata={modaldata} isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
         </>
     );
 };

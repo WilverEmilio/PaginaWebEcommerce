@@ -19,28 +19,14 @@ import { Category, Product } from "@/interFace/interFace";
 import { useGetCategory } from "../../../../api/getCategory";
 import { useGetProductsCategory } from "../../../../api/getCategoryProducts";
 
-
-
-// ❌ ELIMINA ESTA INTERFAZ - Ya no la necesitas
-// interface productDataType {
-//   id: number;
-//   image: string;
-//   title: string;
-//   price: number;
-//   rating: number;
-//   quantity: number;
-//   category: any;
-//   data: any;
-// }
-
 const ProductSection = () => {
   const dispatch = useDispatch();
 
   const [activeCategorySlug, setActiveCategorySlug] =
     useState<string>("aceites-naturales");
 
-  // ✅ CAMBIA: Usa Product en lugar de productDataType
   const [modaldata, setModalData] = useState<Product | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // ✅ Agregar estado
 
   const categoryResponse = useGetCategory();
   const productResponse = useGetProductsCategory(activeCategorySlug);
@@ -55,6 +41,18 @@ const ProductSection = () => {
   const products: Product[] = Array.isArray(productResponse?.result)
     ? productResponse.result
     : [];
+
+  // ✅ Función para abrir modal
+  const handleOpenModal = (product: Product) => {
+    setModalData(product);
+    setIsModalOpen(true);
+  };
+
+  // ✅ Función para cerrar modal
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setModalData(null);
+  };
 
   /* =========================
      MANEJO DE ESTADOS
@@ -71,7 +69,6 @@ const ProductSection = () => {
     );
   }
 
-  // Manejo de errores
   if (categoryResponse.error || productResponse.error) {
     return (
       <div className="product-area pos-relative pt-110 pb-85 fix">
@@ -110,9 +107,7 @@ const ProductSection = () => {
             <h1>Nuestros productos</h1>
           </div>
 
-          {/* =========================
-              CATEGORÍAS - CON VALIDACIÓN
-          ========================= */}
+          {/* CATEGORÍAS */}
           {categories.length > 0 ? (
             <ul className="nav product-tab justify-content-center mb-75">
               {categories.map((cat) => (
@@ -143,9 +138,7 @@ const ProductSection = () => {
             </div>
           )}
 
-          {/* =========================
-              PRODUCTOS - CON VALIDACIÓN
-          ========================= */}
+          {/* PRODUCTOS */}
           <div className="row">
             {products.length > 0 ? (
               products.slice(0, 4).map((product) => {
@@ -175,9 +168,9 @@ const ProductSection = () => {
                             <i className="fas fa-shopping-cart" />
                           </button>
 
+                          {/* ✅ USAR handleOpenModal */}
                           <button
-                            // ✅ CAMBIA: Pasa directamente el producto completo
-                            onClick={() => setModalData(product)}
+                            onClick={() => handleOpenModal(product)}
                             aria-label="Vista rápida"
                           >
                             <i className="fas fa-eye" />
@@ -215,10 +208,12 @@ const ProductSection = () => {
         </div>
       </div>
 
-      {/* =========================
-          MODAL
-      ========================= */}
-      {modaldata && <ProductModal modaldata={modaldata} />}
+      {/* ✅ PASAR isOpen y onClose */}
+      <ProductModal 
+        modaldata={modaldata} 
+        isOpen={isModalOpen}
+        onClose={handleCloseModal}
+      />
     </>
   );
 };

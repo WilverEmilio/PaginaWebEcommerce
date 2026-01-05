@@ -27,7 +27,7 @@ export const cartSlice = createSlice({
      } else {
        const tempProduct = { ...payload, quantity: 1 };
        state.cartProducts.push(tempProduct);
-       toast.success(`${payload.productName} added to cart`, {
+       toast.success(`${payload.productName} se agregó al carrito`, {
          position: "top-left",
        });
      }
@@ -49,7 +49,7 @@ export const cartSlice = createSlice({
          state.cartProducts = state.cartProducts.filter(
            (item) => item.id !== payload.id
          );
-         toast.error(`${payload.productName} removed from cart`, {
+         toast.error(`${payload.productName} se eliminó del carrito`, {
            position: "top-left",
          });
        }
@@ -60,18 +60,18 @@ export const cartSlice = createSlice({
      state.cartProducts = state.cartProducts.filter(
        (item) => item.id !== payload.id
      );
-     toast.error(`${payload.productName} removed from cart`, {
+     toast.error(`${payload.productName} se eliminó del carrito`, {
        position: "top-left",
      });
    },
 
    clear_cart: (state) => {
      const confirmMsg = window.confirm(
-       "Are you sure you want to remove all items from your cart?"
+       "¿Estás seguro de que quieres eliminar todos los artículos de tu carrito?"
      );
      if (confirmMsg) {
        state.cartProducts = [];
-       toast.error("Cart cleared", {
+       toast.error("Carrito vaciado", {
          position: "top-left",
        });
      }

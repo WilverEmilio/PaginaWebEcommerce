@@ -15,7 +15,20 @@ const SearchBarModel = () => {
     const { result, loading } = useGetProductsAll();
     const products = Array.isArray(result) ? result : [];
 
-    // ✅ Filtrar productos cuando cambia el término de búsqueda
+    // ✅ BLOQUEAR SCROLL cuando el modal está abierto
+    useEffect(() => {
+        if (inputValue) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [inputValue]);
+
+    // Filtrar productos cuando cambia el término de búsqueda
     useEffect(() => {
         if (searchTerm.trim() === "") {
             setFilteredProducts([]);
@@ -32,17 +45,16 @@ const SearchBarModel = () => {
         setFilteredProducts(filtered);
     }, [searchTerm, products]);
 
-    // ✅ Limpiar búsqueda al cerrar
+    // Limpiar búsqueda al cerrar
     const handleClose = () => {
         setSearchTerm("");
         setFilteredProducts([]);
         setInputValue(false);
     };
 
-    // ✅ Manejar submit del formulario
+    // Manejar submit del formulario
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        // Opcional: redirigir a página de resultados
     };
 
     return (
@@ -74,7 +86,7 @@ const SearchBarModel = () => {
                             </button>
                         </form>
 
-                        {/* ✅ Resultados de búsqueda */}
+                        {/* Resultados de búsqueda */}
                         <div className="search-results-container">
                             {loading && searchTerm && (
                                 <div className="search-loading">
@@ -154,11 +166,12 @@ const SearchBarModel = () => {
                 </div>
             </div>
 
-            {/* ✅ Backdrop overlay */}
+            {/* Backdrop overlay */}
             {inputValue && (
                 <div 
                     className="modal-backdrop fade show" 
                     onClick={handleClose}
+                    style={{ zIndex: 9998 }}
                 ></div>
             )}
         </>
