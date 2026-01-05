@@ -84,7 +84,7 @@ const SearchBarModel = () => {
 
                             {!loading && searchTerm && filteredProducts.length === 0 && (
                                 <div className="search-no-results">
-                                    <p>No se encontraron productos para "{searchTerm}"</p>
+                                    <p>No se encontraron productos para &quot;{searchTerm}&quot;</p>
                                 </div>
                             )}
 
