@@ -27,7 +27,6 @@ const OrderArea = () => {
                 throw new Error('El carrito está vacío');
             }
 
-            // Verificar que los productos tienen todos los campos necesarios
             const validatedProducts = cartProducts.map(product => ({
                 id: product.id,
                 productName: product.productName || product.productName,
@@ -35,8 +34,7 @@ const OrderArea = () => {
                 quantity: product.quantity || 1
             }));
 
-            console.log('Sending products:', validatedProducts); // Debug log
-
+            console.log('Sending products:', validatedProducts); 
             const res = await makePaymentRequest.post(
                 "/api/orders",
                 {
