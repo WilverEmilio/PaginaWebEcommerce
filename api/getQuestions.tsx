@@ -2,10 +2,10 @@
 import { useFetch } from "@/hooks/useFetch";
 
 export function useQuestions() {
-  const { result,loading, error } = useFetch<any[]>("/questions");
+  const { result, loading, error } = useFetch<any[]>("/api/questions"); 
 
   return {
-    resultado: result,
+    resultado: result ?? [], 
     carga: loading,
     error,
   };
