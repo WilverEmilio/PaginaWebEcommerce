@@ -70,14 +70,14 @@ const HeroSliderOne = () => {
                                                     {item.description}
                                                 </p>
                                                 <div className="slider-button">
-                                                    <Link 
+                                                    {/* <Link 
                                                         href="/services" 
                                                         data-animation="fadeInLeft" 
                                                         data-delay=".8s" 
                                                         className="btn"
                                                     >
                                                         Nuestros Servicios
-                                                    </Link>
+                                                    </Link> */}
                                                     <Link 
                                                         href="/contact" 
                                                         data-animation="fadeInLeft" 
