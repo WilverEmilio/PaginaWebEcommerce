@@ -26,16 +26,16 @@ interface MenuItem {
       pluseIncon: true,
       link: "/about",
     },
-    {
-      id: 3,
-      hasDropdown: true,
-      title: "Servicio",
-      link: "#",
-      pluseIncon: true,
-      submenus: [
-        { title: "Servicios", link: "/services" },
-      ],
-    },
+    // {
+    //   id: 3,
+    //   hasDropdown: true,
+    //   title: "Servicio",
+    //   link: "#",
+    //   pluseIncon: true,
+    //   submenus: [
+    //     { title: "Servicios", link: "/services" },
+    //   ],
+    // },
   
     {
       id: 4,
