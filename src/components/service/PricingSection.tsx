@@ -18,10 +18,7 @@ const PricingSection = () => {
                             </div>
                             <h1>Our Pricing</h1>
                             <p>
-                                Lorem ipsum dolor sit amet consectetur
-                                adipisicing elit sed do eiusmotempor
-                                incididunt ut labore et dolore magna aliqua
-                                enim minim veniam
+                                Hola mundo!
                             </p>
                         </div>
                     </div>
