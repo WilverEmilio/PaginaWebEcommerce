@@ -17,7 +17,7 @@ const Blog2SectionTwo = () => {
                                 <Image src={shape} style={{ width: "auto", height: "auto" }} alt='shape-image' />
                             </div>
                             <h1>Zomata Blog</h1>
-                            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit sed do eiusmotempor incididunt ut labore et dolore magna aliqua enim minim veniam</p>
+                            <p>Hola mundo</p>
                         </div>
                     </div>
                 </div>
